@@ -21,8 +21,8 @@ import java.util.Comparator;
  */
 public class FluxSort {
     
-    private static final int FLUX_OUT = 96;
-    private static final int ANALYZE_THRESHOLD = 132;
+    private static final int FLUX_OUT = 128;  // Increased to reduce recursion overhead
+    private static final int ANALYZE_THRESHOLD = 160;
     
     private final QuadSort quadSort;
     
