@@ -19,9 +19,11 @@ java/
         └── java/
             └── com/
                 └── fluxsort/
-                    ├── FluxSort.java      # Main FluxSort implementation
-                    ├── QuadSort.java      # QuadSort (dependency)
-                    └── FluxSortDemo.java  # Demo and test program
+                    ├── FluxSort.java          # Main FluxSort implementation
+                    ├── QuadSort.java          # QuadSort (dependency)
+                    ├── FluxSortDemo.java      # Demo and test program
+                    ├── FluxSortBenchmark.java # Performance benchmark vs Arrays.sort
+                    └── AdvancedExamples.java  # Advanced usage examples
 ```
 
 ## Features
@@ -107,6 +109,24 @@ Test 3: Sorting Custom Objects (Person by age)
 
 All tests completed successfully!
 ```
+
+## Running the Benchmark
+
+Run the benchmark to compare FluxSort performance with Java's Arrays.sort:
+
+```bash
+cd java/src/main/java
+java com.fluxsort.FluxSortBenchmark
+```
+
+The benchmark tests various scenarios:
+- **Random data**: Completely random integers
+- **Already sorted**: Pre-sorted data (best case)
+- **Reverse sorted**: Reverse-order data
+- **Partially sorted**: 80% sorted data with 20% shuffled
+- **Many duplicates**: Low cardinality data (100 unique values)
+
+Each test runs across multiple array sizes (1K, 10K, 100K, 1M elements) and reports the average time in milliseconds along with the speedup factor compared to Arrays.sort.
 
 ## Key Differences from C Implementation
 
