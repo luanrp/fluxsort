@@ -138,35 +138,39 @@ public class FluxSortBenchmark {
         
         // Benchmark FluxSort
         long fluxSortTotal = 0;
+        int[] lastFluxSortResult = null;
         for (int i = 0; i < BENCHMARK_ITERATIONS; i++) {
             int[] arr = original.clone();
             long start = System.nanoTime();
             fluxSort.sort(arr);
             long end = System.nanoTime();
             fluxSortTotal += (end - start);
-            
-            // Verify correctness
-            if (!isSorted(arr)) {
-                System.out.println(indent + "ERROR: FluxSort did not sort correctly!");
-            }
+            lastFluxSortResult = arr;
         }
         double fluxSortAvg = fluxSortTotal / (double) BENCHMARK_ITERATIONS / 1_000_000.0;
         
+        // Verify correctness of FluxSort
+        if (!isSorted(lastFluxSortResult)) {
+            System.out.println(indent + "ERROR: FluxSort did not sort correctly!");
+        }
+        
         // Benchmark Arrays.sort
         long arraysSortTotal = 0;
+        int[] lastArraysSortResult = null;
         for (int i = 0; i < BENCHMARK_ITERATIONS; i++) {
             int[] arr = original.clone();
             long start = System.nanoTime();
             Arrays.sort(arr);
             long end = System.nanoTime();
             arraysSortTotal += (end - start);
-            
-            // Verify correctness
-            if (!isSorted(arr)) {
-                System.out.println(indent + "ERROR: Arrays.sort did not sort correctly!");
-            }
+            lastArraysSortResult = arr;
         }
         double arraysSortAvg = arraysSortTotal / (double) BENCHMARK_ITERATIONS / 1_000_000.0;
+        
+        // Verify correctness of Arrays.sort
+        if (!isSorted(lastArraysSortResult)) {
+            System.out.println(indent + "ERROR: Arrays.sort did not sort correctly!");
+        }
         
         // Calculate speedup
         double speedup = arraysSortAvg / fluxSortAvg;
