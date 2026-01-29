@@ -60,15 +60,36 @@ public class FluxSort {
             return;
         }
         
-        // Check if already sorted
+        // Check if already sorted or reverse sorted
         boolean sorted = true;
+        boolean reverseSorted = true;
         for (int i = offset + 1; i < offset + length; i++) {
             if (array[i - 1] > array[i]) {
                 sorted = false;
+            }
+            if (array[i - 1] < array[i]) {
+                reverseSorted = false;
+            }
+            // Early exit if neither sorted nor reverse sorted
+            if (!sorted && !reverseSorted) {
                 break;
             }
         }
         if (sorted) return;
+        
+        // If reverse sorted, reverse the array in O(n) time
+        if (reverseSorted) {
+            int left = offset;
+            int right = offset + length - 1;
+            while (left < right) {
+                int temp = array[left];
+                array[left] = array[right];
+                array[right] = temp;
+                left++;
+                right--;
+            }
+            return;
+        }
         
         // Select pivot using median of 9
         int pivot = medianOfNine(array, offset, length);
@@ -139,15 +160,36 @@ public class FluxSort {
             return;
         }
         
-        // Check if already sorted
+        // Check if already sorted or reverse sorted
         boolean sorted = true;
+        boolean reverseSorted = true;
         for (int i = offset + 1; i < offset + length; i++) {
             if (cmp.compare(array[i - 1], array[i]) > 0) {
                 sorted = false;
+            }
+            if (cmp.compare(array[i - 1], array[i]) < 0) {
+                reverseSorted = false;
+            }
+            // Early exit if neither sorted nor reverse sorted
+            if (!sorted && !reverseSorted) {
                 break;
             }
         }
         if (sorted) return;
+        
+        // If reverse sorted, reverse the array in O(n) time
+        if (reverseSorted) {
+            int left = offset;
+            int right = offset + length - 1;
+            while (left < right) {
+                T temp = array[left];
+                array[left] = array[right];
+                array[right] = temp;
+                left++;
+                right--;
+            }
+            return;
+        }
         
         // Select pivot using median of 9
         T pivot = medianOfNine(array, offset, length, cmp);
